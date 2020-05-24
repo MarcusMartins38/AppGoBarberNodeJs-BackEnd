@@ -43,14 +43,16 @@ class ListProviderDayAviabilityService {
     const hourStart = 8;
 
     const eachHourArray = Array.from(
-      { length: 10 },
+      {
+        length: 10,
+      },
       (_, index) => index + hourStart,
     );
 
-    const currentDate = new Date(Date.now());
+    const currenteDate = new Date(Date.now());
 
-    const availability = eachHourArray.map(hour => {
-      const hasAppointmentInHour = appointments.find(
+    const avalability = eachHourArray.map(hour => {
+      const hasAppointmentsInHour = appointments.find(
         appointment => getHours(appointment.date) === hour,
       );
 
@@ -58,11 +60,11 @@ class ListProviderDayAviabilityService {
 
       return {
         hour,
-        available: !hasAppointmentInHour && isAfter(compareDate, currentDate),
+        available: !hasAppointmentsInHour && isAfter(compareDate, currenteDate),
       };
     });
 
-    return availability;
+    return avalability;
   }
 }
 
