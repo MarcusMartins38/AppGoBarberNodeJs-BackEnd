@@ -39,7 +39,6 @@ class ListProviderDayAviabilityService {
         day,
       },
     );
-
     const hourStart = 8;
 
     const eachHourArray = Array.from(

@@ -3,12 +3,12 @@ import multer, { StorageEngine } from 'multer';
 import crypto from 'crypto';
 
 // Onde está impFolder era para ser tmpFolder
-const impFolder = path.resolve(__dirname, '..', '..', 'tmp');
+const tmpFolder = path.resolve(__dirname, '..', '..', 'tmp');
 
 interface IUploadConfig {
   driver: 'disk' | 's3';
 
-  impFolder: string;
+  tmpFolder: string;
   uploadsFolder: string;
 
   multer: {
@@ -26,12 +26,12 @@ interface IUploadConfig {
 export default {
   driver: process.env.STORAGE_DRIVER,
 
-  impFolder,
-  uploadsFolder: path.resolve(impFolder, 'uploads'),
+  tmpFolder,
+  uploadsFolder: path.resolve(tmpFolder, 'uploads'),
 
   multer: {
     storage: multer.diskStorage({
-      destination: impFolder,
+      destination: tmpFolder,
       filename(request, file, callback) {
         const fileHash = crypto.randomBytes(10).toString('HEX');
         const fileName = `${fileHash}-${file.originalname}`;

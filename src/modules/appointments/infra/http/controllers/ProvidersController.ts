@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable class-methods-use-this */
 import { Request, Response } from 'express';
-import { parseISO } from 'date-fns';
 import { container } from 'tsyringe';
 
 import ListProvidersService from '@modules/appointments/services/ListProvidersService';
@@ -9,10 +8,9 @@ import ListProvidersService from '@modules/appointments/services/ListProvidersSe
 export default class ProvidersController {
   public async index(request: Request, response: Response): Promise<Response> {
     const user_id = request.user.id;
+    const listProvidersService = container.resolve(ListProvidersService);
 
-    const listProviders = container.resolve(ListProvidersService);
-
-    const providers = await listProviders.execute({
+    const providers = await listProvidersService.execute({
       user_id,
     });
 
